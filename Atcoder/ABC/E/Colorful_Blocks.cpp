@@ -20,9 +20,10 @@
 #include<vector>
 
 using namespace std;
+
 typedef long long int ll;
 
-const ll mod=77;
+const ll mod=998244353;
 
 ll fact[200005];
 ll fact_inv[200005];
@@ -50,7 +51,18 @@ public:
     }
 };
 
+ll N,M,K;
+
 int main(){
-    Comb C(100);
-    cout<<C.modPow(31,43)<<endl;
+    cin>>N>>M>>K;
+    ll ans=0;
+    Comb C(N+1);
+    ll P=M;
+    for(int x=N-1;x>=0;--x){
+        if(x<=K)ans+=C.comb(N-1,x)*P;
+        P*=(M-1);
+        P%=mod;
+        ans%=mod;
+    }
+    cout<<ans<<endl;
 }

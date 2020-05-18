@@ -18,51 +18,35 @@
 #include<unordered_set>
 #include<utility>
 #include<vector>
+#include<limits.h>
 
 using namespace std;
+typedef long long ll;
+typedef pair<int,int> PI;
+typedef pair<int,pair<int,int>> PII;
+static const int IINF=INT32_MAX;
+static const ll LINF=INT64_MAX;
+static const ll mod=1e9+7;
+static const int dx[4]={1,-1,0,0};
+static const int dy[4]={0,0,1,-1};
+static const double pi=3.14159265358979323846;
 
-typedef long long int ll;
+template<class T> inline bool chmin(T& a,T b){if(a>b){a=b;return true;}return false;}
+template<class T> inline bool chmax(T& a,T b){if(a<b){a=b;return true;}return false;}
 
-int N,M;
-int X;
-int C[20];
-int A[20][20];
+double A,B,H,M;
 
-int B[20];
-
-const int INF=1e8;
-
-int pow(int x,int n){
-    int res=1;
-    for(int i=0;i<n;++i)res*=x;
-    return res;
-}
-
-int calc(int b){
-    int mon=0;
-    for(int i=0;i<M;++i)B[i]=0;
-    for(int i=0;i<N;++i){
-        if((b&pow(2,i))!=pow(2,i))continue;
-        for(int j=0;j<M;++j)B[j]+=A[i][j];
-        mon+=C[i];
-    }
-    for(int i=0;i<M;++i){
-        if(B[i]<X)return INF;
-    }
-    return mon;
-}
+double a,b,c,d,e;
 
 int main(){
-    cin>>N>>M>>X;
-    for(int i=0;i<N;++i){
-        cin>>C[i];
-        for(int j=0;j<M;++j){
-            cin>>A[i][j];
-        }
-    }
-    int ans=INF;
-    int maxbit=pow(2,N);
-    for(int i=0;i<maxbit;++i)ans=min(ans,calc(i));
-    if(ans!=INF)cout<<ans<<endl;
-    else cout<<-1<<endl;
+    cin>>A>>B>>H>>M;
+    b=(double)30*H;
+    c=(double)30*M/60;
+    d=(double)b+c;
+    e=(double)M*6;
+    d=d/360*2*pi;
+    e=e/360*2*pi;
+    double ans=pow(A*cos(d)-B*cos(e),2)+pow(A*sin(d)-B*sin(e),2);
+    printf("%.15f", sqrt(ans));
+
 }

@@ -18,15 +18,36 @@
 #include<unordered_set>
 #include<utility>
 #include<vector>
+#include<limits.h>
 
 using namespace std;
+typedef long long ll;
+typedef pair<int,int> PI;
+typedef pair<int,pair<int,int>> PII;
+static const int IINF=INT32_MAX;
+static const ll LINF=INT64_MAX;
+static const ll mod=1e9+7;
+static const int dx[4]={1,-1,0,0};
+static const int dy[4]={0,0,1,-1};
 
-typedef long long int ll;
+template<class T> inline bool chmin(T& a,T b){if(a>b){a=b;return true;}return false;}
+template<class T> inline bool chmax(T& a,T b){if(a<b){a=b;return true;}return false;}
 
-const ll mod=998244353;
+ll N;
+ll A[200005],B[200005];
 
-ll fact[200005];
-ll fact_inv[200005];
+double Div[200005];
+double Div_inv[200005];
+map<double,ll> m;
+map<double,ll> m_i;
+
+double K[200005];
+
+ll ans=0;
+
+ll fact[200010];
+ll fact_inv[200010];
+
 
 class Comb{
 public:
@@ -51,18 +72,29 @@ public:
     }
 };
 
-ll N,M,K;
-
 int main(){
-    cin>>N>>M>>K;
-    ll ans=0;
-    Comb C(N+1);
-    ll P=M;
-    for(int x=N-1;x>=0;--x){
-        if(x<=K)ans+=C.comb(N-1,x)*P;
-        P*=(M-1);
-        P%=mod;
-        ans%=mod;
+    cin>>N;
+    Comb C(N+5);
+    for(int i=0;i<N;++i){
+        cin>>A[i]>>B[i];
+        Div[i]=(double)A[i]/B[i];
+        Div_inv[i]=(double)1.0/Div[i];
+        m[Div[i]]++;
+        cout<<Div_inv[i]<<endl;
+        m_i[Div_inv[i]]++;
+    }
+    ans+=C.comb(N+1,1)-1;
+    for (auto itr=m.begin();itr!=m.end();++itr){
+        int d=itr->second;
+        double a=itr->first;
+        //cout<<a<<endl;
+        double b=-(double)1.0/a;
+        int di=m_i[b];
+        //cout<<b<<endl;
+        if(di<=0)continue;
+        //cout<<di<<endl;
+        ans-=(C.comb(di,2)-C.comb(N-2+1,1))*C.modPow(2,mod-2);
+        ans=(ans+mod)%mod;
     }
     cout<<ans<<endl;
 }

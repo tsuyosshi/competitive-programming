@@ -33,15 +33,34 @@ static const int dy[4]={0,0,1,-1};
 template<class T> inline bool chmin(T& a,T b){if(a>b){a=b;return true;}return false;}
 template<class T> inline bool chmax(T& a,T b){if(a<b){a=b;return true;}return false;}
 
-int K;
+int N,K;
 string S;
 
+int seq1[100005];
+vector<int> v1;
+int ans;
+
 int main(){
-    cin>>K;
+    cin>>N>>K;
     cin>>S;
-    if(S.size()<=K)cout<<S<<endl;
-    else {
-        for(int i=0;i<K;++i)cout<<S[i];
-        cout<<"..."<<endl;
+    int t=0;
+    v1.push_back(0);
+    for(int i=1;i<N;++i){
+        if(S[i]=='1')if(S[i+1]=='0')v1.push_back(i);
     }
+    for(int i=0;i<N;++i){
+        if(S[i]=='1'){
+            if(i==0)seq1[i]=1;
+            else seq1[i]=seq1[i-1]+1;
+        }
+    }
+    v1.push_back(N-1);
+    for(int i=0;i<v1.size();++i){
+        int a;
+        if(S[v1[i]]=='0')a=1;
+        else a=0;
+        if(i+K>=v1.size())chmax(ans,v1[v1.size()-1]-v1[i]+seq1[v1[i]]+a);
+        else chmax(ans,v1[i+K]-v1[i]+seq1[v1[i]]+a);
+    }
+    cout<<ans<<endl;
 }
