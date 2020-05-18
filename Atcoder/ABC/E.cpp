@@ -80,7 +80,6 @@ int main(){
         Div[i]=(double)A[i]/B[i];
         Div_inv[i]=(double)1.0/Div[i];
         m[Div[i]]++;
-        cout<<Div_inv[i]<<endl;
         m_i[Div_inv[i]]++;
     }
     ans+=C.comb(N+1,1)-1;
@@ -95,6 +94,9 @@ int main(){
         //cout<<di<<endl;
         ans-=(C.comb(di,2)-C.comb(N-2+1,1))*C.modPow(2,mod-2);
         ans=(ans+mod)%mod;
+    }
+    for(auto itr=m.begin();itr!=m.end();++itr){
+        
     }
     cout<<ans<<endl;
 }

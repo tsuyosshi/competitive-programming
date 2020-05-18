@@ -59,14 +59,12 @@ int main(){
         PI res=PI(IINF,IINF);
         for(int i=0;i<G[v].size();++i){
             int nv=G[v][i];
-            //cout<<nv<<endl;
             if(v==0)que.push(nv);
             else if(flag[nv]==1)chmin(res,PI(ans[nv].first+1,nv));
             else que.push(nv);
         }
         if(v==0)ans[v]=PI(0,0);
         else ans[v]=res;
-        //cout<<ans[v].first<<" "<<ans[v].second<<endl;
     }
     for(int i=0;i<N;++i){
         if(ans[i].first==IINF){

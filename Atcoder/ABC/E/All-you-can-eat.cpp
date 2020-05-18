@@ -33,29 +33,28 @@ static const int dy[4]={0,0,1,-1};
 template<class T> inline bool chmin(T& a,T b){if(a>b){a=b;return true;}return false;}
 template<class T> inline bool chmax(T& a,T b){if(a<b){a=b;return true;}return false;}
 
-string N;
+int N,T;
+vector<PI> V;
 
-int a[5]={2,4,5,7,9},b[4]={0,1,6,8},c[1]={3};
+int dp[3005][6005];
+int ans;
 
 int main(){
-    cin>>N;
-    for(int i=0;i<5;++i){
-        if(N[N.size()-1]-'0'==a[i]){
-            cout<<"hon"<<endl;
-            return 0;
+    cin>>N>>T;
+    for(int i=0;i<N;++i){
+        int a,b;
+        cin>>a>>b;
+        V.push_back(PI(a,b));
+    }
+    sort(V.begin(),V.end());
+    for(int i=0;i<N;++i){
+        PI v=V[i];
+        for(int j=0;j<T;++j){
+            chmax(dp[i+1][j],dp[i][j]);
+            chmax(dp[i+1][j+v.first],dp[i][j]+v.second);
+            chmax(ans,dp[i+1][j]);
+            chmax(ans,dp[i+1][j+v.first]);
         }
     }
-    for(int i=0;i<4;++i){
-        if(N[N.size()-1]-'0'==b[i]){
-            cout<<"pon"<<endl;
-            return 0;
-        }
-    }
-    for(int i=0;i<1;++i){
-        if(N[N.size()-1]-'0'==c[i]){
-            cout<<"bon"<<endl;
-            return 0;
-        }
-    }
-
+    cout<<ans<<endl;
 }
