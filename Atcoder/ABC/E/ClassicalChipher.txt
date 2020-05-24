@@ -33,7 +33,11 @@ static const int dy[4]={0,0,1,-1};
 template<class T> inline bool chmin(T& a,T b){if(a>b){a=b;return true;}return false;}
 template<class T> inline bool chmax(T& a,T b){if(a<b){a=b;return true;}return false;}
 
+string s="fsdz{Fdhvdu_flskhu_lv_fodvvlfdo_flskhu}"
+
 int main(){
-    cout<<IINF<<endl;
-    cout<<LINF<<endl;
+    for(int i=0;i<s.size();++i){
+        char c=s[i]-3;
+        cout<<c<<endl;
+    }
 }
