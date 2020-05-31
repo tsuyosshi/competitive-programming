@@ -40,27 +40,21 @@ int main(){
     cin>>N;
     for(int i=0;i<N;++i)cin>>A[i];
     for(int i=0;i<N;++i){
-        //cout<<"i="<<i<<endl;
         for(int k=0;k<61;++k){
             int b=((A[i]&d[k])==d[k]);
             B[i][k][b]++;
-            //cout<<"k="<<k<<" b="<<b<<endl;
             if(i!=0){
                 B[i][k][0]+=B[i-1][k][0];
                 B[i][k][1]+=B[i-1][k][1];
                 B[i][k][0]%=mod;
                 B[i][k][1]%=mod;
             }
-            //cout<<"cnt="<<B[i][k][b]<<endl;
         }
     }
     ll ans=0;
     for(int i=0;i<N-1;++i){
-        //cout<<"i="<<i<<endl;
         for(int k=0;k<60;++k){
             int b=((A[i]&d[k])==d[k]);
-            //cout<<"k="<<k<<" b="<<b<<endl;
-            //cout<<"cnt="<<(B[N-1][k][!b]-B[i][k][!b])<<endl;
             ans+=d[k]*(B[N-1][k][!b]-B[i][k][!b]);
             ans%=mod;
         }

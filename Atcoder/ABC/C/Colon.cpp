@@ -24,45 +24,29 @@ using namespace std;
 typedef long long ll;
 typedef pair<int,int> PI;
 typedef pair<int,pair<int,int>> PII;
-typedef pair<ll,ll> PL;
 static const int IINF=INT32_MAX;
 static const ll LINF=INT64_MAX;
 static const ll mod=1e9+7;
 static const int dx[4]={1,-1,0,0};
 static const int dy[4]={0,0,1,-1};
+static const double pi=3.14159265358979323846;
 
 template<class T> inline bool chmin(T& a,T b){if(a>b){a=b;return true;}return false;}
 template<class T> inline bool chmax(T& a,T b){if(a<b){a=b;return true;}return false;}
 
-ll p_num[1000005];
-ll N;
+double A,B,H,M;
 
-ll ans=0;
-
-vector<PL> p;
-
-ll Pow(ll x,ll n){
-    ll res=1;
-    for(int i=0;i<n;++i)res*=x;
-    return res;
-}
+double a,b,c,d,e;
 
 int main(){
-    cin>>N;
-    ll x=N;
-    for(ll j=2;j*j<=x;j++){
-        ll k=0;
-        while(x%j==0){
-            k++;
-            x/=j;
-        }
-        if(k!=0)p.push_back(PI(j,k));
-    }
-    if(x!=1)p.push_back(PI(x,1));
-    for(int i=0;i<p.size();++i){
-        ll n=(-1+sqrt(1+8*p[i].second))/2;
-        ans+=n;
-    }
-    cout<<ans<<endl;
+    cin>>A>>B>>H>>M;
+    b=(double)30*H;
+    c=(double)30*M/60;
+    d=(double)b+c;
+    e=(double)M*6;
+    d=d/360*2*pi;
+    e=e/360*2*pi;
+    double ans=pow(A*cos(d)-B*cos(e),2)+pow(A*sin(d)-B*sin(e),2);
+    printf("%.15f", sqrt(ans));
 
 }

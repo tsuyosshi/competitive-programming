@@ -24,7 +24,6 @@ using namespace std;
 typedef long long ll;
 typedef pair<int,int> PI;
 typedef pair<int,pair<int,int>> PII;
-typedef pair<ll,ll> PL;
 static const int IINF=INT32_MAX;
 static const ll LINF=INT64_MAX;
 static const ll mod=1e9+7;
@@ -34,35 +33,29 @@ static const int dy[4]={0,0,1,-1};
 template<class T> inline bool chmin(T& a,T b){if(a>b){a=b;return true;}return false;}
 template<class T> inline bool chmax(T& a,T b){if(a<b){a=b;return true;}return false;}
 
-ll p_num[1000005];
-ll N;
+string N;
 
-ll ans=0;
-
-vector<PL> p;
-
-ll Pow(ll x,ll n){
-    ll res=1;
-    for(int i=0;i<n;++i)res*=x;
-    return res;
-}
+int a[5]={2,4,5,7,9},b[4]={0,1,6,8},c[1]={3};
 
 int main(){
     cin>>N;
-    ll x=N;
-    for(ll j=2;j*j<=x;j++){
-        ll k=0;
-        while(x%j==0){
-            k++;
-            x/=j;
+    for(int i=0;i<5;++i){
+        if(N[N.size()-1]-'0'==a[i]){
+            cout<<"hon"<<endl;
+            return 0;
         }
-        if(k!=0)p.push_back(PI(j,k));
     }
-    if(x!=1)p.push_back(PI(x,1));
-    for(int i=0;i<p.size();++i){
-        ll n=(-1+sqrt(1+8*p[i].second))/2;
-        ans+=n;
+    for(int i=0;i<4;++i){
+        if(N[N.size()-1]-'0'==b[i]){
+            cout<<"pon"<<endl;
+            return 0;
+        }
     }
-    cout<<ans<<endl;
+    for(int i=0;i<1;++i){
+        if(N[N.size()-1]-'0'==c[i]){
+            cout<<"bon"<<endl;
+            return 0;
+        }
+    }
 
 }

@@ -33,29 +33,9 @@ static const int dy[4]={0,0,1,-1};
 template<class T> inline bool chmin(T& a,T b){if(a>b){a=b;return true;}return false;}
 template<class T> inline bool chmax(T& a,T b){if(a<b){a=b;return true;}return false;}
 
-string N;
-
-int a[5]={2,4,5,7,9},b[4]={0,1,6,8},c[1]={3};
+int a,b;
 
 int main(){
-    cin>>N;
-    for(int i=0;i<5;++i){
-        if(N[N.size()-1]-'0'==a[i]){
-            cout<<"hon"<<endl;
-            return 0;
-        }
-    }
-    for(int i=0;i<4;++i){
-        if(N[N.size()-1]-'0'==b[i]){
-            cout<<"pon"<<endl;
-            return 0;
-        }
-    }
-    for(int i=0;i<1;++i){
-        if(N[N.size()-1]-'0'==c[i]){
-            cout<<"bon"<<endl;
-            return 0;
-        }
-    }
-
+    cin>>a>>b;
+    cout<<a*b<<endl;
 }

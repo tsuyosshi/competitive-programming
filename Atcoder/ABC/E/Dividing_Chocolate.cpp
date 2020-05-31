@@ -56,17 +56,11 @@ int calc(int b){
         if((b&B[i])==B[i])line_y.push_back(i);
     }
     line_y.push_back(H);
-    //cout<<"y=";
-    //for(auto u:line_y)cout<<u<<" ";
-    //cout<<endl;
     for(int x=1;x<=W;++x){
         pline_y=0;
         int cnt;
         for(auto y:line_y){
             cnt=calc_choco(x,y,pline_x,pline_y);
-            //cout<<"(pline_x,pline_y)="<<pline_x<<" "<<pline_y<<endl;
-            //cout<<"(x,y)="<<x<<" "<<y<<endl;
-            //cout<<"cnt="<<cnt<<endl;
             if(cnt>K){
                 pline_x=x-1;
                 res++;
@@ -97,7 +91,6 @@ int main(){
                 if(x==0)choco[y][x]=choco[y-1][x]+c;
                 else choco[y][x]=choco[y-1][x]+(choco[y][x-1]-choco[y-1][x-1])+c;
             }
-            //cout<<choco[y][x]<<endl;
         }
     }
     if(choco[H-1][W-1]<=K)cout<<0<<endl;

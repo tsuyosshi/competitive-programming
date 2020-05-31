@@ -27,40 +27,51 @@ typedef pair<int,pair<int,int>> PII;
 static const int IINF=INT32_MAX;
 static const ll LINF=INT64_MAX;
 static const ll mod=1e9+7;
-static const double eps=1e-13;
 static const int dx[4]={1,-1,0,0};
 static const int dy[4]={0,0,1,-1};
 
 template<class T> inline bool chmin(T& a,T b){if(a>b){a=b;return true;}return false;}
 template<class T> inline bool chmax(T& a,T b){if(a<b){a=b;return true;}return false;}
 
-int N;
-ll A[100005];
+int N,M;
 
-ll res=1;
-
-ll maxR=1e18+0.5;
-
-bool ok=true;
+vector<int> G[100005];
+int flag[100005];
+PI ans[100005];
 
 
 int main(){
-    cin>>N;
-    for(int i=0;i<N;++i){
-        cin>>A[i];
-        if(A[i]==0)ok=false;
+    cin>>N>>M;
+    for(int i=0;i<M;++i){
+        int a,b;
+        cin>>a>>b;
+        a--,b--;
+        G[a].push_back(b);
+        G[b].push_back(a);
     }
-    if(!ok){
-        cout<<0<<endl;
-        return 0;
+    queue<int> que;
+    que.push(0);
+    while(!que.empty()){
+        int v=que.front();
+        que.pop();
+        if(flag[v]==1)continue;
+        flag[v]=1;
+        PI res=PI(IINF,IINF);
+        for(int i=0;i<G[v].size();++i){
+            int nv=G[v][i];
+            if(v==0)que.push(nv);
+            else if(flag[nv]==1)chmin(res,PI(ans[nv].first+1,nv));
+            else que.push(nv);
+        }
+        if(v==0)ans[v]=PI(0,0);
+        else ans[v]=res;
     }
     for(int i=0;i<N;++i){
-        ll c=maxR/res;
-        if(A[i]>c){
-            cout<<-1<<endl;
+        if(ans[i].first==IINF){
+            cout<<"No"<<endl;
             return 0;
         }
-        res*=A[i];
     }
-    cout<<res<<endl;
+    cout<<"Yes"<<endl;
+    for(int i=1;i<N;++i)cout<<ans[i].second+1<<endl;
 }
