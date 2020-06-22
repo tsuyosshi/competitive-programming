@@ -20,10 +20,34 @@ static const int ddy[8]={0,0,1,-1,1,-1,1,-1};
 template<class T> inline bool chmin(T& a,T b){if(a>b){a=b;return true;}return false;}
 template<class T> inline bool chmax(T& a,T b){if(a<b){a=b;return true;}return false;}
 
-char a;
+bool is_prime[200005];
+vector<int> prime;
+
+void sieve(int n){
+    for(int i=0;i<=n;++i)is_prime[i]=true;
+    is_prime[0]=is_prime[1]=false;
+    for(int i=2;i<=n;++i){
+        if(is_prime[i]){
+            prime.push_back(i);
+            for(int j=2*i;j<=n;j+=i)is_prime[j]=false;
+        }
+    }
+}
+
+vector<PI> prime_factor(int x){
+    vector<PI> res; // first=素数, second=指数
+    for(int p=2;p*p<=x;p++){
+        int k=0;
+        while(x%p==0){
+            k++;
+            x/=p;
+        }
+        if(k!=0)res.push_back(PI(p,k));
+    }
+    if(x!=1)res.push_back(PI(x,1));
+    return res;
+}
 
 signed main(){
-    cin>>a;
-    if(a<97)cout<<"A"<<endl;
-    else cout<<"a"<<endl;
+    for(auto u:prime_factor(100))cout<<u.first<<" "<<u.second<<endl;
 }

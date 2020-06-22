@@ -14,16 +14,26 @@ static const double eps=1e-12;
 static const double pi=3.14159265358979323846;
 static const int dx[4]={1,-1,0,0};
 static const int dy[4]={0,0,1,-1};
-static const int ddx[8]={1,-1,0,0,1,1,-1,-1};
-static const int ddy[8]={0,0,1,-1,1,-1,1,-1};
 
 template<class T> inline bool chmin(T& a,T b){if(a>b){a=b;return true;}return false;}
 template<class T> inline bool chmax(T& a,T b){if(a<b){a=b;return true;}return false;}
 
-char a;
+int X,N;
+int p[105];
+
+int dif=INF,res;
 
 signed main(){
-    cin>>a;
-    if(a<97)cout<<"A"<<endl;
-    else cout<<"a"<<endl;
+    cin>>X>>N;
+    for(int i=0;i<N;++i)cin>>p[i];
+    for(int x=-100;x<=100;++x){
+        bool contained=false;
+        for(int i=0;i<N;++i)if(x==p[i])contained=true;
+        if(contained)continue;
+        if(dif>abs(X-x)){
+            dif=abs(X-x);
+            res=x;
+        }
+    }
+    cout<<res<<endl;
 }

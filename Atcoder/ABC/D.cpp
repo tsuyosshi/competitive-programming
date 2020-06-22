@@ -1,68 +1,45 @@
-#include<iostream>
-#include<algorithm>
-#include<bitset>
-#include<cmath>
-#include<complex>
-#include<deque>
-#include<functional>
-#include<iomanip>
-#include<iostream>
-#include<iterator>
-#include<map>
-#include<numeric>
-#include<queue>
-#include<set>
-#include<stack>
-#include<string>
-#include<unordered_map>
-#include<unordered_set>
-#include<utility>
-#include<vector>
-#include<limits.h>
+#include<bits/stdc++.h>
 
 using namespace std;
-typedef long long ll;
+
+#define int long long
+#define ALL(x) (x).begin(),(x).end()
+#define MAX(x) *max_element(ALL(x))
+#define MIN(x) *min_element(ALL(x))
+
 typedef pair<int,int> PI;
 typedef pair<int,pair<int,int>> PII;
-typedef pair<ll,ll> PL;
-static const int IINF=INT32_MAX;
-static const ll LINF=INT64_MAX;
-static const ll mod=1e9+7;
+static const int INF=1010000000000000017LL;
+static const double eps=1e-12;
+static const double pi=3.14159265358979323846;
 static const int dx[4]={1,-1,0,0};
 static const int dy[4]={0,0,1,-1};
+static const int ddx[8]={1,-1,0,0,1,1,-1,-1};
+static const int ddy[8]={0,0,1,-1,1,-1,1,-1};
 
 template<class T> inline bool chmin(T& a,T b){if(a>b){a=b;return true;}return false;}
 template<class T> inline bool chmax(T& a,T b){if(a<b){a=b;return true;}return false;}
 
-ll p_num[1000005];
-ll N;
+int N,Q;
+int A[100005];
+int num[100005];
 
-ll ans=0;
-
-vector<PL> p;
-
-ll Pow(ll x,ll n){
-    ll res=1;
-    for(int i=0;i<n;++i)res*=x;
-    return res;
-}
-
-int main(){
+signed main(){
     cin>>N;
-    ll x=N;
-    for(ll j=2;j*j<=x;j++){
-        ll k=0;
-        while(x%j==0){
-            k++;
-            x/=j;
-        }
-        if(k!=0)p.push_back(PI(j,k));
+    for(int i=0;i<N;++i){
+        cin>>A[i];
+        num[A[i]]++;
     }
-    if(x!=1)p.push_back(PI(x,1));
-    for(int i=0;i<p.size();++i){
-        ll n=(-1+sqrt(1+8*p[i].second))/2;
-        ans+=n;
+    cin>>Q;
+    int ans=0;
+    for(int i=0;i<=100000;++i)ans+=i*num[i];
+    while(Q--){
+        int B,C;
+        cin>>B>>C;
+        ans-=B*num[B];
+        ans+=C*num[B];
+        num[C]+=num[B];
+        num[B]=0;
+        cout<<ans<<endl;
     }
-    cout<<ans<<endl;
-
 }

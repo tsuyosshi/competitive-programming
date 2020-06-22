@@ -20,10 +20,14 @@ static const int ddy[8]={0,0,1,-1,1,-1,1,-1};
 template<class T> inline bool chmin(T& a,T b){if(a>b){a=b;return true;}return false;}
 template<class T> inline bool chmax(T& a,T b){if(a<b){a=b;return true;}return false;}
 
-char a;
+vector<int> divisor(int n) {
+    vector<int> res;
+    for (int i=1;i*i<=n;i++) {
+        if (n%i==0)res.push_back(n/i);
+    }
+    return res;
+}
 
 signed main(){
-    cin>>a;
-    if(a<97)cout<<"A"<<endl;
-    else cout<<"a"<<endl;
+
 }
