@@ -20,39 +20,12 @@ static const int ddy[8]={0,0,1,-1,1,-1,1,-1};
 template<class T> inline bool chmin(T& a,T b){if(a>b){a=b;return true;}return false;}
 template<class T> inline bool chmax(T& a,T b){if(a<b){a=b;return true;}return false;}
 
-const int mod=1000000009;
-
-int fact[500005];
-int fact_inv[500005];
-
-class Comb{
-public:
-    Comb(int N){
-        fact[0]=1;
-        fact_inv[0]=1;
-        for(int i=1;i<=N;++i){
-            fact[i]=fact[i-1]*i%mod;
-            fact_inv[i]=modPow(fact[i],mod-2);
-        }
-    }
-
-    int modPow(int a, int n) {
-        if(n==1)return a%mod;
-        if (n%2==1)return(a*modPow(a,n-1))%mod;
-        int t=modPow(a,n/2);
-        return (t*t)%mod;
-    }
-
-    int comb(int n,int r){
-        return (((fact[n]*fact_inv[r])%mod)*fact_inv[n-r])%mod;
-    }
-
-    int perm(int n,int k){
-        return (fact[n]*fact_inv[n-k])%mod;
-    }
-};
-
+//f(x)・g(x)を求める
+//f(x)=x^3+2x^2-4x+3, g(x)=x^3-2x^2+2x+1
+//f1(x)=x+2, f0(x)=-4x+3
+//g1(x)=x-2, g0(x)=2x+1
+//a(x)=x^2-4, b(x)=-8x^2+2x+3, c(x)=5x^2+14x-3
+//f(x)*g(x)=x^6-6x^4+16x^3-12x^2+2x+3
+//(x^2-4)x^4+(-2x^2+16x-4)x^2-8x^2+2x+3
 signed main(){
-    Comb C(100);
-    cout<<C.modPow(2,3)<<endl;
 }

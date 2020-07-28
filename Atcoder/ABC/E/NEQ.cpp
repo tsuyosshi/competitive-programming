@@ -20,7 +20,10 @@ static const int ddy[8]={0,0,1,-1,1,-1,1,-1};
 template<class T> inline bool chmin(T& a,T b){if(a>b){a=b;return true;}return false;}
 template<class T> inline bool chmax(T& a,T b){if(a<b){a=b;return true;}return false;}
 
-const int mod=1000000009;
+const int mod=1000000007;
+int MAX=500000;
+
+int N,M;
 
 int fact[500005];
 int fact_inv[500005];
@@ -53,6 +56,16 @@ public:
 };
 
 signed main(){
-    Comb C(100);
-    cout<<C.modPow(2,3)<<endl;
+    Comb C(MAX);
+    cin>>N>>M;
+    int a=(C.perm(M,N)*C.perm(M,N))%mod;
+    for(int k=1;k<=N;++k){
+        int houzyo=(C.perm(M-k,N-k)*C.perm(M-k,N-k))%mod;
+        houzyo=(houzyo*C.perm(M,k))%mod;
+        houzyo=(houzyo*C.comb(N,k))%mod;
+        if(k%2==0)a+=houzyo;
+        else a-=houzyo;
+        a=(a+mod)%mod;
+    }
+    cout<<a<<endl;
 }

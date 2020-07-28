@@ -22,10 +22,9 @@ template<class T> inline bool chmax(T& a,T b){if(a<b){a=b;return true;}return fa
 
 // st d=gcd(f,g) s*f+t*g=d
 
-int f,g;
 int s,t,d;
 
-void EEA(){
+tuple<int,int,int> EEA(int f,int g){
     int r0=f,s0=1,t0=0;
     int r1=g,s1=0,t1=1;
     int r2,s2,t2;
@@ -43,10 +42,44 @@ void EEA(){
         t0=t1,t1=t2;
     }
     d=r0,s=s0,t=t0;
+    return make_tuple(s,t,d);
+}
+
+int CTR(vector<int> &n,vector<int> &a){
+    // n = a (mod m)
+    int dim=n.size();
+    int r=1;
+    int x=0;
+    vector<int> e;
+    for(int i=0;i<dim;++i)r*=n[i];
+    for(int i=0;i<dim;++i){
+        int r_=r/n[i];
+        int r_inv=(get<0>(EEA(r_,n[i]))+n[i])%n[i];
+        e.push_back(r_inv*r_);
+    }
+    for(int i=0;i<dim;++i){
+        x+=a[i]*e[i];
+        x%=r;
+    }
+    return x;
 }
 
 signed main(){
-    cin>>f>>g;
-    EEA();
-    cout<<s<<"f+"<<t<<"g="<<d<<endl;
+    int n1=9,n2=10,n3=11;
+    int n1_=n2*n3,n2_=n3*n1,n3_=n1*n2;
+    cout << "n1*="<<n1_<<endl;
+    int n1_inv = (get<0>(EEA(n1_,n1)) + n1)%n1 ;
+    cout << "n1*_inv=" << n1_inv << endl;
+    int e1 = n1_inv * n1_;
+    cout << "e1=" << e1 <<endl;
+    cout << "n2*="<<n2_<<endl;
+    int n2_inv = (get<0>(EEA(n2_,n2)) + n2)%n2;
+    cout << "n2*_inv=" << n2_inv << endl;
+    int e2 = n2_inv * n2_;
+    cout << "e2=" << e2 <<endl;
+    cout << "n3*="<<n3_<<endl;
+    int n3_inv = (get<0>(EEA(n3_,n3)) + n3)%n3;
+    cout << "n3*_inv=" << n3_inv << endl;
+    int e3 = n3_inv * n3_;
+    cout << "e3=" << e3 <<endl;
 }

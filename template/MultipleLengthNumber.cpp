@@ -20,39 +20,38 @@ static const int ddy[8]={0,0,1,-1,1,-1,1,-1};
 template<class T> inline bool chmin(T& a,T b){if(a>b){a=b;return true;}return false;}
 template<class T> inline bool chmax(T& a,T b){if(a<b){a=b;return true;}return false;}
 
-const int mod=1000000009;
+/*int modPow(int a, int n, int mod) {
+    if(n==0)return 1;
+    if(n==1)return a%mod;
+    if (n%2==1)return(a*modPow(a,n-1,mod))%mod;
+    int t=modPow(a,n/2,mod);
+    return (t*t)%mod;
+}*/
 
-int fact[500005];
-int fact_inv[500005];
+int pow(int x, int n){
+    int ret=1;
+    for(int i=0;i<n;++i)ret*=x;
+    return ret;
+}
 
-class Comb{
-public:
-    Comb(int N){
-        fact[0]=1;
-        fact_inv[0]=1;
-        for(int i=1;i<=N;++i){
-            fact[i]=fact[i-1]*i%mod;
-            fact_inv[i]=modPow(fact[i],mod-2);
-        }
+void div(string a, int b){
+    string ret="";
+    int k=a.size();
+    int r0,r1=0;
+    for(int i=0;i<k;++i){
+        r0=a[i]-'0';
+        int v=r1*pow(10,k)+r0;
+        int q=v/b;
+        int r=v%b;
+        cout << v << endl;
+        //cout << r << endl;
+        //cout<<q<<endl;
+        r1=r0;
+        ret+=(char)(q+'0');
     }
-
-    int modPow(int a, int n) {
-        if(n==1)return a%mod;
-        if (n%2==1)return(a*modPow(a,n-1))%mod;
-        int t=modPow(a,n/2);
-        return (t*t)%mod;
-    }
-
-    int comb(int n,int r){
-        return (((fact[n]*fact_inv[r])%mod)*fact_inv[n-r])%mod;
-    }
-
-    int perm(int n,int k){
-        return (fact[n]*fact_inv[n-k])%mod;
-    }
-};
+    cout<< ret << " " << r0 << endl;
+}
 
 signed main(){
-    Comb C(100);
-    cout<<C.modPow(2,3)<<endl;
+    div("20200713",7); 
 }
