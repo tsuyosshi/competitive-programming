@@ -20,15 +20,25 @@ static const int ddy[8]={0,0,1,-1,1,-1,1,-1};
 template<class T> inline bool chmin(T& a,T b){if(a>b){a=b;return true;}return false;}
 template<class T> inline bool chmax(T& a,T b){if(a<b){a=b;return true;}return false;}
 
-vector<int> divisor(int n) {
-    vector<int> res;
-    for (int i=1;i*i<=n;i++) {
-        res.push_back(i);
-        if(n%i==0)res.push_back(n/i);
-    }
-    return res;
-}
+int N,M;
+int H[100005];
+
+bool good[100005];
+int ans;
 
 signed main(){
-
+    cin>>N>>M;
+    for(int i=0;i<N;++i){
+        cin>>H[i];
+        good[i]=true;
+    }
+    for(int i=0;i<M;++i){
+        int a,b;
+        cin>>a>>b;
+        a--,b--;
+        if(H[a]<=H[b])good[a]=false;
+        if(H[a]>=H[b])good[b]=false;
+    }
+    for(int i=0;i<N;++i)if(good[i])ans++;
+    cout<<ans<<endl;
 }

@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "tuple": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "memory_resource": "cpp"
     }
 }

@@ -65,12 +65,13 @@ int CTR(vector<int> &n,vector<int> &a){
 }
 
 signed main(){
-    int n1=9,n2=10,n3=11;
+    int n1=9,n2=13,n3=17;
+    int n=n1*n2*n3;
     int n1_=n2*n3,n2_=n3*n1,n3_=n1*n2;
     cout << "n1*="<<n1_<<endl;
     int n1_inv = (get<0>(EEA(n1_,n1)) + n1)%n1 ;
     cout << "n1*_inv=" << n1_inv << endl;
-    int e1 = n1_inv * n1_;
+    int e1 = n1_inv *  n1_;
     cout << "e1=" << e1 <<endl;
     cout << "n2*="<<n2_<<endl;
     int n2_inv = (get<0>(EEA(n2_,n2)) + n2)%n2;
@@ -82,4 +83,15 @@ signed main(){
     cout << "n3*_inv=" << n3_inv << endl;
     int e3 = n3_inv * n3_;
     cout << "e3=" << e3 <<endl;
+    int a1=2,a2=3,a3=7;
+    int a=(a1*e1+a2*e2+a3*e3);
+    cout<<"a="<<a<<endl;
+    cout<<"a%n1="<<a%n1<<endl;
+    cout<<"a%n2="<<a%n2<<endl;
+    cout<<"a%n3="<<a%n3<<endl;
+    for(int x=-n;x<=n;++x){
+        if((x%n1+n1)%n1==a1&&(x%n2+n2)%n2==a2&&(x%n3+n3)%n3==a3){
+            cout<<"x="<<x<<endl;
+        }
+    }
 }

@@ -20,58 +20,44 @@ static const int ddy[8]={0,0,1,-1,1,-1,1,-1};
 template<class T> inline bool chmin(T& a,T b){if(a>b){a=b;return true;}return false;}
 template<class T> inline bool chmax(T& a,T b){if(a<b){a=b;return true;}return false;}
 
-const int mod=1000000007;
-
-int N,K;
-int A[200005];
-int mlt[200005];
-int mlt_inv[200005];
-int ans=-INF;
-
-vector<int> pls;
-vector<int> mns;
-
-int modPow(int a, int n) {
-    if(n==1)return a%mod;
-    if (n%2==1)return(a*modPow(a,n-1))%mod;
-    int t=modPow(a,n/2);
-    return (t*t)%mod;
-}
+int H,W;
+int M;
+vector<int> row[300005];
+vector<int> col[300005];
+vector<int> maxw;
+int numh[300005]; 
 
 signed main(){
-    for(int i=0;i<200005;++i){
-        mlt[i]=1;
-        mlt_inv[i]=1;
+    cin>>H>>W>>M;
+    for(int i=0;i<M;++i){
+        int h,w;
+        cin>>h>>w;
+        h--,w--;
+        row[h].push_back(w);
+        col[w].push_back(h);
     }
-    int N,K;
-    cin>>N>>K;
-    for(int i=0;i<N;++i)cin>>A[i];
-    sort(A,A+N);
-    for(int i=0;i<N;++i){
-        if(A[i]>=0)pls.push_back(A[i]);
-        else mns.push_back(A[i]);
+    for(int i=0;i<H;++i){
+        if(row[i].size()==0)continue;
+        sort(row[i].begin(),row[i].end());
     }
-    int ph=0,mh=0;
-    int cnt=0;
-    int res=1;
-    while(cnt<K){
-        if(cnt+2>K||mh==mns.size()-1){
-            res*=pls[ph];
-            ph++;
-            cnt++;
+    int ma=0;
+    for(int i=0;i<W;++i){
+        if(col[i].size()==0)continue;
+        sort(col[i].begin(),col[i].end());
+        chmax(ma,(int)col[i].size());
+    }
+    for(int i=0;i<W;++i){
+        if(ma==col[i].size())maxw.push_back(i);
+    }
+    for(auto i:maxw){
+        for(auto u:col[i]){
+            numh[u]++;
         }
-        else if(ph==pls.size()-1){
-            res*=mns[mh]*mns[mh+1];
-            mh+=2;
-            cnt+=2;
-        }
-        else {
-            if(K-ph==2&&ph==pls.size()-2){
-                res*=mns[mh]*mns[mh+1];
-                mh+=2;
-                cnt+=2;
-            }
-            else if(mns[mh]*mns[mh+1]<pls[ph]*pls[ph+1])
-        }  
     }
+    int ans=0;
+    for(int y=0;y<H;++y){
+        if(numh[y]==maxw.size())chmax(ans,ma+(int)row[y].size()-1);
+        else chmax(ans,ma+(int)row[y].size());
+    }
+    cout<<ans<<endl;
 }
