@@ -20,11 +20,10 @@ static const int ddy[8]={0,0,1,-1,1,-1,1,-1};
 template<class T> inline bool chmin(T& a,T b){if(a>b){a=b;return true;}return false;}
 template<class T> inline bool chmax(T& a,T b){if(a<b){a=b;return true;}return false;}
 
-
 class UnionFind {
 private:
-	vector<int> par;
-	vector<int> siz;
+	std::vector<int> par;
+	std::vector<int> siz;
  
 public:
 	UnionFind(int sz_) : par(sz_), siz(sz_, 1) {
@@ -55,5 +54,24 @@ public:
 	}
 };
 
+int N;
+
 signed main(){
+    cin>>N;
+    vector<tuple<int,int,int>> edge(N-1);
+    for(int i=0;i<N-1;++i){
+        int u,v,w;
+        cin>>u>>v>>w;
+        u--;
+        v--;
+        edge.push_back(tuple<int,int,int>(w,u,v));
+    }
+    sort(edge.begin(),edge.end());
+    int ans=0;
+    UnionFind uf(N);
+    for(auto& [w,u,v]:edge){
+        ans+=w*uf.size(u)*uf.size(v);
+        uf.unite(u,v);
+    }
+    cout<<ans<<endl;
 }

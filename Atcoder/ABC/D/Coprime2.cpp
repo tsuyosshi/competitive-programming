@@ -20,40 +20,43 @@ static const int ddy[8]={0,0,1,-1,1,-1,1,-1};
 template<class T> inline bool chmin(T& a,T b){if(a>b){a=b;return true;}return false;}
 template<class T> inline bool chmax(T& a,T b){if(a<b){a=b;return true;}return false;}
 
+int N,M;
+int A[100005];
+int Q[100005];
+int cnt;
 
-class UnionFind {
-private:
-	vector<int> par;
-	vector<int> siz;
- 
-public:
-	UnionFind(int sz_) : par(sz_), siz(sz_, 1) {
-		for (int i = 0; i < sz_; ++i) par[i] = i;
-	}
-	void init(int sz_) {
-		par.resize(sz_);
-		siz.resize(sz_, 1);
-		for (int i = 0; i < sz_; ++i) par[i] = i;
-	}
-	int find(int x) {
-		while (par[x] != x) x = par[x] = par[par[x]];
-		return x;
-	}
-	void unite(int x, int y) {
-		x = find(x);
-		y = find(y);
-		if (x == y) return;
-		if (siz[x] < siz[y]) std::swap(x, y);
-		siz[x] += siz[y];
-		par[y] = x;
-	}
-	bool same(int x, int y) {
-		return find(x) == find(y);
-	}
-	int size(int x) {
-		return siz[find(x)];
-	}
-};
+void prime_factor(int x){
+    for(int p=2;p*p<=x;p++){
+        int k=0;
+        while(x%p==0){
+            k++;
+            x/=p;
+        }
+        if(k!=0)Q[p]=k;
+    }
+    if(x!=1)Q[x]=1;
+}
+
+bool check(int x){
+    for(int p=2;p*p<=x;p++){
+        int k=0;
+        while(x%p==0){
+            k++;
+            x/=p;
+        }
+        if(k!=0&&Q[p]!=0) return false;
+    }
+    if(x!=1&&Q[x]!=0)return false;
+    return true;
+}
 
 signed main(){
+    cin>>N>>M;
+    for(int i=0;i<N;++i){
+        cin>>A[i];
+        prime_factor(A[i]);
+    }
+    for(int q=1;q<=M;++q)if(check(q))cnt++;
+    cout<<cnt<<endl;
+    for(int q=1;q<=M;++q)if(check(q))cout<<q<<endl;
 }

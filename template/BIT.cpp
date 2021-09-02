@@ -21,7 +21,7 @@ template<class T> inline bool chmin(T& a,T b){if(a>b){a=b;return true;}return fa
 template<class T> inline bool chmax(T& a,T b){if(a<b){a=b;return true;}return false;}
 
 
-class BIT{
+class BIT {
 public:
     vector<int> bit;
     int M;
@@ -45,5 +45,5 @@ public:
     }
 };
 
-signed main(){
+signed main() {
 }

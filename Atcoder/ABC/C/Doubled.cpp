@@ -14,36 +14,37 @@ static const double eps=1e-12;
 static const double pi=3.14159265358979323846;
 static const int dx[4]={1,-1,0,0};
 static const int dy[4]={0,0,1,-1};
+static const int ddx[8]={1,-1,0,0,1,1,-1,-1};
+static const int ddy[8]={0,0,1,-1,1,-1,1,-1};
 
 template<class T> inline bool chmin(T& a,T b){if(a>b){a=b;return true;}return false;}
 template<class T> inline bool chmax(T& a,T b){if(a<b){a=b;return true;}return false;}
 
 int N;
-int A[200005];
-bool used[2000000];
-int num[2000000];
+int ans;
 
-int res;
+int dig(int x) {
+    int d = 0;
+    while (x != 0) {
+        x /= 10;
+        d++;
+    }
+    return d;
+}
 
-bool divisor(int n) {
-    for (int i=1;i*i<=n;i++) {
-        if (n%i==0) {
-            if(used[i])return true;
-            if (i*i!=n&&used[n/i])return true;
-        
-    return false;
+int ipow(int x, int n) {
+    int res = 1;
+    for (int i = 0; i < n; ++i) res *= x;
+    return res;
 }
 
 signed main(){
-    cin>>N;
-    for(int i=0;i<N;++i){
-        cin>>A[i];
-        num[A[i]]++;
+    cin >> N;
+    int n = sqrt(N) + 1;
+    for (int x = 1; x <= n; ++x) {
+        int d = dig(x);
+        if (x + x * ipow(10, d) > N) continue;
+        ans++;
     }
-    sort(A,A+N);
-    for(int i=0;i<N;++i){
-        if(divisor(A[i])||num[A[i]]>1)res++;
-        used[A[i]]=true;
-    }
-    cout<<N-res<<endl;
+    cout << ans << endl;
 }

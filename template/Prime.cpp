@@ -34,6 +34,7 @@ void sieve(int n){
     }
 }
 
+// O(Qlogx_i)
 vector<PI> prime_factor(int x){
     vector<PI> res; // first=素数, second=指数
     for(int p=2;p*p<=x;p++){
