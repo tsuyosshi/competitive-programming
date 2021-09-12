@@ -20,12 +20,30 @@ static const int ddy[8]={0,0,1,-1,1,-1,1,-1};
 template<class T> inline bool chmin(T& a,T b){if(a>b){a=b;return true;}return false;}
 template<class T> inline bool chmax(T& a,T b){if(a<b){a=b;return true;}return false;}
 
-int N;
-string S;
+int N,M;
+vector<PI> E[405];
+int d[405][405];
+int ans;
 
 signed main(){
-    cin>>N;
-    cin>>S;
-    if(S[N-1]=='o')cout<<"Yes"<<endl;
-    else cout<<"No"<<endl;
+    cin>>N>>M;
+    for(int i=0;i<M;++i){
+        int a,b,c;
+        cin>>a>>b>>c;
+        a--;
+        b--;
+        E[a].push_back(PI(b,c));
+    }
+    for(int i=0;i<N;++i)for(int j=0;j<N;++j)d[i][j]=INF;
+    for(int i=0;i<N;++i)for(auto u:E[i])d[i][u.first]=u.second;
+    for(int k=0;k<N;++k){
+        for(int i=0;i<N;++i){
+            for(int j=0;j<N;++j){
+                if(i==j)continue;
+                d[i][j]=min(d[i][j],d[i][k]+d[k][j]);
+                if(d[i][j]!=INF)ans+=d[i][j];
+            }
+        }
+    }
+    cout<<ans<<endl;
 }

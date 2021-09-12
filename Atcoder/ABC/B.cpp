@@ -20,15 +20,11 @@ static const int ddy[8]={0,0,1,-1,1,-1,1,-1};
 template<class T> inline bool chmin(T& a,T b){if(a>b){a=b;return true;}return false;}
 template<class T> inline bool chmax(T& a,T b){if(a<b){a=b;return true;}return false;}
 
-string x;
-int m=0;
-
 signed main(){
-    cin>>x;
-    for(int i=0;i<x.size();++i){
-        m+=x[i]-'0';
-        m%=9;
+    for(int i=0;i<26;++i){
+        int p;
+        cin>>p;
+        cout<<(char)(p-1+'a');
     }
-    if(m==0)cout<<"Yes"<<endl;
-    else cout<<"No"<<endl;
+    cout<<endl;
 }

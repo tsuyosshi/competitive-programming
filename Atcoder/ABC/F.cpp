@@ -20,27 +20,5 @@ static const int ddy[8]={0,0,1,-1,1,-1,1,-1};
 template<class T> inline bool chmin(T& a,T b){if(a>b){a=b;return true;}return false;}
 template<class T> inline bool chmax(T& a,T b){if(a<b){a=b;return true;}return false;}
 
-int N;
-int V[3];
-
-map<char,int> v;
-vector<string> query;
-string ans;
-
 signed main(){
-    cin>>N;
-    cin>>v['A']>>v['B']>>v['C'];
-    for(int i=0;i<N;++i){
-        string q;
-        cin>>q;
-        query.push_back(q);
-    }
-    for(int i=0;i<N;++i){
-        string q=query[i];
-        
-    }
-    cout<<"Yes"<<endl;
-    for(auto u:ans){
-        cout<<u<<endl;
-    }
 }
