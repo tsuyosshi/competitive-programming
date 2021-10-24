@@ -20,28 +20,5 @@ static const int ddy[8]={0,0,1,-1,1,-1,1,-1};
 template<class T> inline bool chmin(T& a,T b){if(a>b){a=b;return true;}return false;}
 template<class T> inline bool chmax(T& a,T b){if(a<b){a=b;return true;}return false;}
 
-int N;
-double A[100005],B[100005];
-
 signed main(){
-    cin>>N;
-    double T=0;
-    for(int i=0;i<N;++i){
-        cin>>A[i]>>B[i];
-        T+=A[i]/B[i];
-    }
-    T/=2;
-    double ans=0;
-    for(int i=0;i<N;++i){
-        double t=A[i]/B[i];
-        if(T<t){
-            ans+=T*B[i];
-            break;
-        }
-        else {
-            T-=t;
-            ans+=A[i];
-        }
-    }
-    printf("%.20f\n",ans);
 }
