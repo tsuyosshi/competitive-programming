@@ -21,10 +21,4 @@ template<class T> inline bool chmin(T& a,T b){if(a>b){a=b;return true;}return fa
 template<class T> inline bool chmax(T& a,T b){if(a<b){a=b;return true;}return false;}
 
 signed main(){
-    for(int i=0;i<26;++i){
-        int p;
-        cin>>p;
-        cout<<(char)(p-1+'a');
-    }
-    cout<<endl;
 }

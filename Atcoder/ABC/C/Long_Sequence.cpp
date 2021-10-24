@@ -20,40 +20,25 @@ static const int ddy[8]={0,0,1,-1,1,-1,1,-1};
 template<class T> inline bool chmin(T& a,T b){if(a>b){a=b;return true;}return false;}
 template<class T> inline bool chmax(T& a,T b){if(a<b){a=b;return true;}return false;}
 
-const int mod=1000000007;
-
-int fact[500005];
-int fact_inv[500005];
-
-class Comb{
-public:
-    Comb(int N){
-        fact[0]=1;
-        fact_inv[0]=1;
-        for(int i=1;i<=N;++i){
-            fact[i]=fact[i-1]*i%mod;
-            fact_inv[i]=modPow(fact[i],mod-2);
-        }
-    }
-
-    int modPow(int a,int n) {
-        if(n==0)return 1;
-        if(n==1)return a%mod;
-        if (n%2==1)return(a*modPow(a,n-1))%mod;
-        int t=modPow(a,n/2);
-        return (t*t)%mod;
-    }
-
-    int comb(int n,int r){
-        return (((fact[n]*fact_inv[r])%mod)*fact_inv[n-r])%mod;
-    }
-
-    int perm(int n,int k){
-        return (fact[n]*fact_inv[n-k])%mod;
-    }
-};
+int N;
+int A[100005];
+int X;
 
 signed main(){
-    Comb C(100);
-    cout<<C.modPow(2,3)<<endl;
+    cin>>N;
+    int sum=0;
+    for(int i=0;i<N;++i){
+        cin>>A[i];
+        sum+=A[i];
+    }
+    cin>>X;
+    int c=X/sum;
+    X-=c*sum;
+    int k=0;
+    for(int i=0;i<N;++i){
+        if(X<0)break;
+        X-=A[i];
+        k++;
+    }
+    cout<<c*N+k<<endl;
 }

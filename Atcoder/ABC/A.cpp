@@ -20,12 +20,5 @@ static const int ddy[8]={0,0,1,-1,1,-1,1,-1};
 template<class T> inline bool chmin(T& a,T b){if(a>b){a=b;return true;}return false;}
 template<class T> inline bool chmax(T& a,T b){if(a<b){a=b;return true;}return false;}
 
-int N;
-string S;
-
 signed main(){
-    cin>>N;
-    cin>>S;
-    if(S[N-1]=='o')cout<<"Yes"<<endl;
-    else cout<<"No"<<endl;
 }

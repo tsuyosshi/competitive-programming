@@ -49,9 +49,6 @@ void dijkstar(int s){
         PI p=pq.top();
         pq.pop();
         int v=p.second;
-        cout<<"v : "<<(char)(v)<<endl;
-        cout<<"dist : "<<d[v]<<endl; 
-        cout<<"p : "<<p.first<<endl;
         if(d[v]<p.first)continue;
         for(int i=0;i<G[v].size();++i){
             edge e=G[v][i];

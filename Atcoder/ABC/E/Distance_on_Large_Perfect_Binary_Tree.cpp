@@ -20,28 +20,40 @@ static const int ddy[8]={0,0,1,-1,1,-1,1,-1};
 template<class T> inline bool chmin(T& a,T b){if(a>b){a=b;return true;}return false;}
 template<class T> inline bool chmax(T& a,T b){if(a<b){a=b;return true;}return false;}
 
-int N;
-double A[100005],B[100005];
+const int mod=998244353;
+
+int modPow(int a, int n) {
+    if(n==0)return 1;
+    if(n==1)return a%mod;
+    if (n%2==1)return(a*modPow(a,n-1))%mod;
+    int t=modPow(a,n/2);
+    return (t*t)%mod;
+}
+
+int N,D;
+int ans;
 
 signed main(){
-    cin>>N;
-    double T=0;
-    for(int i=0;i<N;++i){
-        cin>>A[i]>>B[i];
-        T+=A[i]/B[i];
+    cin>>N>>D;
+    if(D==1){
+        for(int i=1;i<N;++i)ans=(ans+modPow(2,i))%mod;
+        cout<<(2*ans)%mod<<endl;
+        return 0;
     }
-    T/=2;
-    double ans=0;
-    for(int i=0;i<N;++i){
-        double t=A[i]/B[i];
-        if(T<t){
-            ans+=T*B[i];
-            break;
+    for(int d=1;d<=N;++d){
+        int cnt=0;
+        int l=max(D+d-N,1ll),r=min(N-d,D-1);
+        if(d+D<=N){
+            cnt+=2*modPow(2,D);
+            cnt%=mod;
         }
-        else {
-            T-=t;
-            ans+=A[i];
+        if(l<=r&&D>1){
+            cnt+=2*(r-l+1)*modPow(2,D-2);
+            cnt%=mod;
+            cnt*=modPow(2,d-1);
+            cnt%=mod;
         }
+        ans=(ans+cnt)%mod;
     }
-    printf("%.20f\n",ans);
+    cout<<ans<<endl;
 }

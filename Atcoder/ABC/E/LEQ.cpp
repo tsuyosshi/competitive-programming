@@ -20,6 +20,15 @@ static const int ddy[8]={0,0,1,-1,1,-1,1,-1};
 template<class T> inline bool chmin(T& a,T b){if(a>b){a=b;return true;}return false;}
 template<class T> inline bool chmax(T& a,T b){if(a<b){a=b;return true;}return false;}
 
+const int mod=998244353;
+
+int modPow(int a,int n) {
+    if(n==0)return 1;
+    if(n==1)return a%mod;
+    if (n%2==1)return(a*modPow(a,n-1))%mod;
+    int t=modPow(a,n/2);
+    return (t*t)%mod;
+}
 
 class BIT {
 public:
@@ -43,5 +52,34 @@ public:
     }
 };
 
-signed main() {
+int N;
+int A[300005];
+vector<PI> V;
+int dp[300005];
+
+signed main(){
+    cin>>N;
+    for(int i=0;i<N;++i){
+        cin>>A[i];
+        V.push_back(PI(A[i],i));
+    }
+    sort(V.begin(),V.end());
+    BIT bit(N);
+    int idx=lower_bound(V.begin(),V.end(),PI(A[0],0))-V.begin();
+    int m=modPow(2,0);
+    bit.add(idx+1,modPow(m,mod-2));
+    for(int i=1;i<N;++i){
+        idx=lower_bound(V.begin(),V.end(),PI(A[i],i))-V.begin();
+        if(idx>0){
+            int sum=bit.sum(idx)%mod;
+            dp[i]=modPow(2,i-1);
+            dp[i]*=sum;
+            dp[i]%=mod;
+        }
+        dp[i]+=dp[i-1];
+        dp[i]%=mod;
+        m=modPow(2,i);
+        bit.add(idx+1,modPow(m,mod-2));
+    }
+    cout<<dp[N-1]<<endl;
 }

@@ -20,28 +20,52 @@ static const int ddy[8]={0,0,1,-1,1,-1,1,-1};
 template<class T> inline bool chmin(T& a,T b){if(a>b){a=b;return true;}return false;}
 template<class T> inline bool chmax(T& a,T b){if(a<b){a=b;return true;}return false;}
 
+/*
 int N;
-double A[100005],B[100005];
+int T[105];
+map<PI,int> mem;
+
+int calc(int n,int t){
+    if(mem.find(PI(n,t))!=mem.end())return mem[PI(n,t)];
+    if(n==N)return abs(t);
+    int res=min(calc(n+1,t+T[n]),calc(n+1,t-T[n]));
+    return mem[PI(n,t)]=res;
+}
 
 signed main(){
     cin>>N;
-    double T=0;
+    int S=0;
     for(int i=0;i<N;++i){
-        cin>>A[i]>>B[i];
-        T+=A[i]/B[i];
+        cin>>T[i];
+        S+=T[i];
     }
-    T/=2;
-    double ans=0;
+    int K=calc(0,0);
+    cout<<(S+K)/2<<endl;
+}
+*/
+
+int N;
+int T[105];
+int dp[105][100005];
+
+signed main(){
+    cin>>N;
+    int S=0;
     for(int i=0;i<N;++i){
-        double t=A[i]/B[i];
-        if(T<t){
-            ans+=T*B[i];
-            break;
-        }
-        else {
-            T-=t;
-            ans+=A[i];
+        cin>>T[i];
+        S+=T[i];
+    }
+    dp[0][T[0]]=1;
+    for(int i=1;i<N;++i){
+        for(int j=0;j<100005;++j){
+            if(j-T[i]<0)continue;
+            dp[i][j]+=dp[i-1][j-T[i]]+dp[i-1][j];
         }
     }
-    printf("%.20f\n",ans);
+    for(int i=S/2;i<100005;++i){
+        if(dp[N-1][i]!=0){
+            cout<<max(i,S-i)<<endl;
+            return 0;
+        }
+    }
 }

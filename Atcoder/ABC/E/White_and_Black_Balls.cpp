@@ -1,12 +1,12 @@
 #include<bits/stdc++.h>
-
+ 
 using namespace std;
-
+ 
 #define int long long
 #define ALL(x) (x).begin(),(x).end()
 #define MAX(x) *max_element(ALL(x))
 #define MIN(x) *min_element(ALL(x))
-
+ 
 typedef pair<int,int> PI;
 typedef pair<int,pair<int,int>> PII;
 static const int INF=1010000000000000017LL;
@@ -16,14 +16,15 @@ static const int dx[4]={1,-1,0,0};
 static const int dy[4]={0,0,1,-1};
 static const int ddx[8]={1,-1,0,0,1,1,-1,-1};
 static const int ddy[8]={0,0,1,-1,1,-1,1,-1};
-
+ 
 template<class T> inline bool chmin(T& a,T b){if(a>b){a=b;return true;}return false;}
 template<class T> inline bool chmax(T& a,T b){if(a<b){a=b;return true;}return false;}
 
 const int mod=1000000007;
+int N,M,K;
 
-int fact[500005];
-int fact_inv[500005];
+int fact[2000005];
+int fact_inv[2000005];
 
 class Comb{
 public:
@@ -36,8 +37,7 @@ public:
         }
     }
 
-    int modPow(int a,int n) {
-        if(n==0)return 1;
+    int modPow(int a, int n) {
         if(n==1)return a%mod;
         if (n%2==1)return(a*modPow(a,n-1))%mod;
         int t=modPow(a,n/2);
@@ -53,7 +53,12 @@ public:
     }
 };
 
+
 signed main(){
-    Comb C(100);
-    cout<<C.modPow(2,3)<<endl;
+    cin>>N>>M>>K;
+    if(N-M>K)cout<<0<<endl;
+    else {
+        Comb comb(N+M);
+        cout<<(comb.comb(N+M,N)-comb.comb(M+N,M+K+1)+mod)%mod<<endl;
+    }
 }

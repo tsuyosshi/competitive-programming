@@ -20,40 +20,26 @@ static const int ddy[8]={0,0,1,-1,1,-1,1,-1};
 template<class T> inline bool chmin(T& a,T b){if(a>b){a=b;return true;}return false;}
 template<class T> inline bool chmax(T& a,T b){if(a<b){a=b;return true;}return false;}
 
-const int mod=1000000007;
+const int mod=1e9+7;
+string S;
+string c="chokudai";
+int mem[100005][10];
 
-int fact[500005];
-int fact_inv[500005];
-
-class Comb{
-public:
-    Comb(int N){
-        fact[0]=1;
-        fact_inv[0]=1;
-        for(int i=1;i<=N;++i){
-            fact[i]=fact[i-1]*i%mod;
-            fact_inv[i]=modPow(fact[i],mod-2);
-        }
+int calc(int n,int k){
+    if(mem[n][k]!=-1)return mem[n][k];
+    if(n==S.size()){
+        if(k==8)return 1;
+        else return 0;
     }
-
-    int modPow(int a,int n) {
-        if(n==0)return 1;
-        if(n==1)return a%mod;
-        if (n%2==1)return(a*modPow(a,n-1))%mod;
-        int t=modPow(a,n/2);
-        return (t*t)%mod;
-    }
-
-    int comb(int n,int r){
-        return (((fact[n]*fact_inv[r])%mod)*fact_inv[n-r])%mod;
-    }
-
-    int perm(int n,int k){
-        return (fact[n]*fact_inv[n-k])%mod;
-    }
-};
+    int res=0;
+    res+=calc(n+1,k);
+    if(S[n]==c[k]&&k<8)res+=calc(n+1,k+1);
+    res%=mod;
+    return mem[n][k]=res;
+}
 
 signed main(){
-    Comb C(100);
-    cout<<C.modPow(2,3)<<endl;
+    for(int i=0;i<100005;++i)for(int j=0;j<10;++j)mem[i][j]=-1;
+    cin>>S;
+    cout<<calc(0,0)<<endl;
 }

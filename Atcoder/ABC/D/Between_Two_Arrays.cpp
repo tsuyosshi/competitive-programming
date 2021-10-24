@@ -20,28 +20,38 @@ static const int ddy[8]={0,0,1,-1,1,-1,1,-1};
 template<class T> inline bool chmin(T& a,T b){if(a>b){a=b;return true;}return false;}
 template<class T> inline bool chmax(T& a,T b){if(a<b){a=b;return true;}return false;}
 
+const int mod=998244353;
 int N;
-double A[100005],B[100005];
+int A[3005],B[3005];
+int dp[3005][3005];
 
 signed main(){
     cin>>N;
-    double T=0;
-    for(int i=0;i<N;++i){
-        cin>>A[i]>>B[i];
-        T+=A[i]/B[i];
-    }
-    T/=2;
-    double ans=0;
-    for(int i=0;i<N;++i){
-        double t=A[i]/B[i];
-        if(T<t){
-            ans+=T*B[i];
-            break;
+    for(int i=0;i<N;++i)cin>>A[i];
+    for(int i=0;i<N;++i)cin>>B[i];
+    for(int i=A[0];i<=B[0];++i)dp[0][i]=1;
+    for(int i=1;i<N;++i){
+        int sum=0;
+        for(int j=0;j<A[i];++j){
+            sum+=dp[i-1][j];
+            sum%=mod;
         }
-        else {
-            T-=t;
-            ans+=A[i];
+        for(int j=A[i];j<=B[i];++j){
+            sum+=dp[i-1][j];
+            sum%=mod;
+            dp[i][j]+=sum;
+            dp[i][j]%=mod;
+            /*for(int k=0;k<=j;++k){
+                dp[i][j]+=dp[i-1][k];
+            }*/
+            //cout<<"i, j : "<<i<<" "<<j<<endl;
+            //cout<<dp[i][j]<<endl;
         }
     }
-    printf("%.20f\n",ans);
+    int ans=0;
+    for(int i=A[N-1];i<=B[N-1];++i){
+        ans+=dp[N-1][i];
+        ans%=mod;
+    }
+    cout<<ans<<endl;
 }
